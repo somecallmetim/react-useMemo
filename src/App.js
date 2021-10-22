@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
-function App() {
+export default function App() {
     const [number, setNumber] = useState(0);
     const [dark, setDark] = useState(false);
-    const doubleNumber = slowFunction(number);
+    const doubleNumber = useMemo(() => {return slowFunction(number)}, [number]);
     const themeStyles = {
         backgroundColor: dark ? "black" : "white",
         color: dark ? "white" : "black",
     };
+
     return (
         <>
             <input
@@ -23,4 +24,8 @@ function App() {
     );
 }
 
-export default App;
+function slowFunction(num) {
+    console.log("Calling Slow Function");
+    for (let i = 0; i <= 1000000000; i++) {}
+    return num * 2;
+}
