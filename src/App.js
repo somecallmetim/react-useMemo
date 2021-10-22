@@ -1,13 +1,21 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 
 export default function App() {
     const [number, setNumber] = useState(0);
     const [dark, setDark] = useState(false);
-    const doubleNumber = useMemo(() => {return slowFunction(number)}, [number]);
-    const themeStyles = {
-        backgroundColor: dark ? "black" : "white",
-        color: dark ? "white" : "black",
-    };
+    const doubleNumber = useMemo(() => {
+        return slowFunction(number);
+    }, [number]);
+    const themeStyles = useMemo(() => {
+        return {
+            backgroundColor: dark ? "black" : "white",
+            color: dark ? "white" : "black",
+        };
+    });
+
+    useEffect(() => {
+        console.log("Theme Changed");
+    }, [themeStyles]);
 
     return (
         <>
